@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS runtime
+FROM ubuntu:noble AS runtime
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y

@@ -11,8 +11,17 @@ services:
       - /dev/dxg:/dev/dxg
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
-      - ./assets:/assets
-    command: /test.sh
+      - ./output:/output
   ubuntu2404:
     build:
-      context: ubuntu2404
+      context: .
+      dockerfile: dockerfiles/ubuntu2404.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./output:/output
