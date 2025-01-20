@@ -12,7 +12,7 @@ services:
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
       - ./assets:/assets
-    command: bash
+    command: /test.sh
   ubuntu2404:
     build:
       context: ubuntu2404
