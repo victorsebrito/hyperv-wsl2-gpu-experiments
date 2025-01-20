@@ -42,6 +42,18 @@ I don't have much expertise with this kind of issue, but my best bet right now i
 
 So far I've only got the GPU to work on Ubuntu 22.04 using the latest official Mesa drivers. On Ubuntu 24.04, I got it working when I built Mesa drivers from source, but faced the same issue with Plex. I also managed to build and install the drivers on Alpine, but not even `vainfo` worked. I'll see if I can recreate the Dockerfiles I used and store them in this repo.
 
+Here's the output for `wsl --version`, by the way:
+
+```
+WSL version: 2.3.26.0
+Kernel version: 5.15.167.4-1
+WSLg version: 1.0.65
+MSRDC version: 1.2.5620
+Direct3D version: 1.611.1-81528511
+DXCore version: 10.0.26100.1-240331-1435.ge-release
+Windows version: 10.0.26100.2894
+```
+
 ## Updates
 
 I'll use this section when I have updates. Feel free to open an issue or contribute with a PR.
