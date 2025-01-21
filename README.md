@@ -9,10 +9,10 @@ I figured it was time to document all my work when I started wanting to go back 
 Use the following command to execute all tests:
 
 ```bash
-docker compose run --build --rm ubuntu2204 /tests/all.sh
+docker compose run --build --rm --service-ports ubuntu-22.04 /shared/tests/all.sh
 ```
 
-You can replace `ubuntu2204` with other setups (see [compose.yml](./compose.yml)) and `/tests/all.sh` with any other command (like `bash`).
+You can replace `ubuntu-22.04` with other setups (see [compose.yml](./compose.yml)) and `/shared/tests/all.sh` with any other command (like `bash`).
 
 ## Context
 
@@ -40,7 +40,34 @@ This is probably an issue because of [this](https://forums.plex.tv/t/plex-media-
 
 I don't have much expertise with this kind of issue, but my best bet right now is to make WSL GPU acceleration work in a [musl-based](https://wiki.musl-libc.org/projects-using-musl.html) distro (like Alpine) to see if Plex will be able to load the drivers.
 
-So far I've only got the GPU to work on Ubuntu 22.04 using the latest official Mesa drivers. On Ubuntu 24.04, I got it working when I built Mesa drivers from source, but faced the same issue with Plex. I also managed to build and install the drivers on Alpine, but not even `vainfo` worked. I'll see if I can recreate the Dockerfiles I used and store them in this repo.
+So far I've only got the GPU to work on Ubuntu 22.04 using the latest official Mesa drivers:
+
+```
+libva info: VA-API version 1.14.0
+libva info: User environment variable requested driver 'd3d12'
+libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so
+libva info: Found init function __vaDriverInit_1_14
+libva info: va_openDriver() returns 0
+vainfo: VA-API version: 1.14 (libva 2.12.0)
+vainfo: Driver version: Mesa Gallium driver 23.2.1-1ubuntu3.1~22.04.3 for D3D12 (Intel(R) Iris(R) Xe Graphics)
+vainfo: Supported profile and entrypoints
+      VAProfileH264ConstrainedBaseline: VAEntrypointVLD
+      VAProfileH264ConstrainedBaseline: VAEntrypointEncSlice
+      VAProfileH264Main               : VAEntrypointVLD
+      VAProfileH264Main               : VAEntrypointEncSlice
+      VAProfileH264High               : VAEntrypointVLD
+      VAProfileH264High               : VAEntrypointEncSlice
+      VAProfileHEVCMain               : VAEntrypointVLD
+      VAProfileHEVCMain               : VAEntrypointEncSlice
+      VAProfileHEVCMain10             : VAEntrypointVLD
+      VAProfileHEVCMain10             : VAEntrypointEncSlice
+      VAProfileVP9Profile0            : VAEntrypointVLD
+      VAProfileVP9Profile2            : VAEntrypointVLD
+      VAProfileAV1Profile0            : VAEntrypointVLD
+      VAProfileNone                   : VAEntrypointVideoProc
+```
+
+On Ubuntu 24.04, I got it working when I built Mesa drivers from source, but faced the same issue with Plex. I also managed to build and install the drivers on Alpine, but not even `vainfo` worked. I'll see if I can recreate the Dockerfiles I used and store them in this repo.
 
 Here's the output for `wsl --version`, by the way:
 
@@ -57,6 +84,20 @@ Windows version: 10.0.26100.2894
 ## Updates
 
 I'll use this section when I have updates. Feel free to open an issue or contribute with a PR.
+
+#### January 21, 2025
+  1. I'm recreating the Dockerfiles and I already got different results. `ffmpeg` worked on Ubuntu 24.04 (`ubuntu-24.04` in compose file) without the need to build the drivers from source. Now I don't even trust what I did before because I might've done something wrong in the process.
+     
+     It doesn't work when I use the `linuxserver/plex` image though (`ubuntu-24.04-plex-linuxserver`), which is interesting. I'll take it from here and try to find out what's going on:
+
+     ```
+      libva info: VA-API version 1.20.0
+      libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so
+      libva info: Found init function __vaDriverInit_1_20
+      libva error: /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so init failed
+      libva info: va_openDriver() returns 2
+      vaInitialize failed with error code 2 (resource allocation failed),exit
+     ```
 
 ## My personal goal
 
