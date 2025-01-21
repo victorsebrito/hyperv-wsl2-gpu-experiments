@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Never modify line endings of our bash scripts
+*.sh -crlf

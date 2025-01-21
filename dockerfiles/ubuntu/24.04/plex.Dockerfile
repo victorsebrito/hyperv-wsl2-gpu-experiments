@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS runtime
+FROM lscr.io/linuxserver/plex:1.41.3.9314-a0bfb8370-ls251
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y
@@ -8,8 +8,4 @@ RUN apt install -y \
     mesa-va-drivers \
     ffmpeg
 
-ADD samples /samples
-ADD tests /tests
-
-ENV LIBVA_DRIVER_NAME=d3d12
-ENV LD_LIBRARY_PATH=/usr/lib/wsl/lib
+#ENTRYPOINT ["/usr/bin/bash"]

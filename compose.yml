@@ -1,8 +1,8 @@
 services:
-  ubuntu2204:
+  ubuntu-22.04:
     build:
       context: .
-      dockerfile: dockerfiles/ubuntu2204.Dockerfile
+      dockerfile: dockerfiles/ubuntu/22.04/Dockerfile
     environment:
       - LIBVA_DRIVER_NAME=d3d12
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib
@@ -11,11 +11,11 @@ services:
       - /dev/dxg:/dev/dxg
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
-      - ./output:/output
-  ubuntu2404:
+      - ./shared:/shared
+  ubuntu-24.04:
     build:
       context: .
-      dockerfile: dockerfiles/ubuntu2404.Dockerfile
+      dockerfile: dockerfiles/ubuntu/24.04/Dockerfile
     environment:
       - LIBVA_DRIVER_NAME=d3d12
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib
@@ -24,4 +24,20 @@ services:
       - /dev/dxg:/dev/dxg
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
-      - ./output:/output
+      - ./shared:/shared
+  ubuntu-24.04-plex:
+    build:
+      context: .
+      dockerfile: dockerfiles/ubuntu/24.04/plex.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+      - PUID=0
+      - PGID=0
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./shared:/shared
+      - ./shared/plex:/config
