@@ -12,6 +12,26 @@ services:
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
       - ./shared:/shared
+  ubuntu-22.04-plex-linuxserver:
+    build:
+      context: .
+      dockerfile: dockerfiles/ubuntu/22.04/plex-linuxserver.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+      - PUID=1000
+      - PGID=1000
+      - VERSION=1.41.4.9380-34f46d871
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./shared:/shared
+      - ./shared/plex:/config
+    ports:
+      - 32400:32400
   ubuntu-24.04:
     build:
       context: .
@@ -31,9 +51,11 @@ services:
       dockerfile: dockerfiles/ubuntu/24.04/plex-linuxserver.Dockerfile
     environment:
       - LIBVA_DRIVER_NAME=d3d12
+      - LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib
-      - PUID=0
-      - PGID=0
+      - PUID=1000
+      - PGID=1000
+      - VERSION=1.41.4.9380-34f46d871
     devices:
       - /dev/dri:/dev/dri
       - /dev/dxg:/dev/dxg
@@ -41,3 +63,5 @@ services:
       - /usr/lib/wsl:/usr/lib/wsl
       - ./shared:/shared
       - ./shared/plex:/config
+    ports:
+      - 32400:32400

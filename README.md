@@ -123,7 +123,26 @@ I'll use this section when I have updates. Feel free to open an issue or contrib
            VAProfileAV1Profile0            : VAEntrypointVLD
            VAProfileNone                   : VAEntrypointVideoProc
      ``` 
+  3. Plex still wouldn't load the drivers, though:
+     ```
+     [FFMPEG] - Failed to initialise VAAPI connection: -1 (unknown libva error).
+     ```
+     I discovered some of its child processes like `Plex Plug-in [com.plexapp.system]` were running with the `LIBVA_DRIVERS_PATH` environment variable set to `/config/Library/Application Support/Plex Media Server/Cache/va-dri-linux-x86_64`, which was just an empty folder.
+     
+     I set it to `/usr/lib/x86_64-linux-gnu/dri` in my compose file and this is what I got (`ubuntu-24.04-plex-linuxserver`):
+     ```
+     [FFMPEG] - libva: dlopen of /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so failed: Error relocating /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so: __isoc23_strtoul: symbol not found
+     ```
 
+     And when I tried with `ubuntu-22.04-plex-linuxserver`:
+     ```
+     [FFMPEG] - libva: dlopen of /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so failed: Error relocating /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so: fcntl64: symbol not found
+     ```
+
+     Same kind of error, different symbols... probably because of the different libs versions.
+     
+     Anyways, it's good news: I've arrived where I was when I created the repo. Only now I can easily reproduce the errors and work on them.
+     
 ## My personal goal
 
 The ideal setup is to have an **Windows 11 host with an Hyper-V VM running Ubuntu Server**. GPU acceleration should be available in both OSs, and Windows should also be accessible via HDMI with mouse and keyboard support.
