@@ -25,10 +25,10 @@ services:
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
       - ./shared:/shared
-  ubuntu-24.04-plex:
+  ubuntu-24.04-plex-linuxserver:
     build:
       context: .
-      dockerfile: dockerfiles/ubuntu/24.04/plex.Dockerfile
+      dockerfile: dockerfiles/ubuntu/24.04/plex-linuxserver.Dockerfile
     environment:
       - LIBVA_DRIVER_NAME=d3d12
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib

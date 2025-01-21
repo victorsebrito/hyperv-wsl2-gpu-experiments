@@ -1,4 +1,4 @@
 #!/bin/bash
 
-vainfo
+vainfo --display drm
 /shared/tests/ffmpeg_h264.sh
