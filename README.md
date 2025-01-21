@@ -8,8 +8,8 @@ I figured it was time to document all my work when I started wanting to go back 
 
 Use the following command to execute all tests:
 
-```bash
-docker compose run --build --rm --service-ports ubuntu-22.04 /shared/tests/all.sh
+```console
+# docker compose run --name=gpu-tests --build --rm --service-ports ubuntu-22.04 /shared/tests/all.sh
 ```
 
 You can replace `ubuntu-22.04` with other setups (see [compose.yml](./compose.yml)) and `/shared/tests/all.sh` with any other command (like `bash`).
@@ -98,6 +98,31 @@ I'll use this section when I have updates. Feel free to open an issue or contrib
       libva info: va_openDriver() returns 2
       vaInitialize failed with error code 2 (resource allocation failed),exit
      ```
+  2. Turns out it was just an issue with the way the LinuxServer image works. I changed the `ENTRYPOINT` and `CMD` commands and now it's working as I expected:
+
+     ```
+     libva info: VA-API version 1.20.0
+     libva info: User environment variable requested driver 'd3d12'
+     libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/d3d12_drv_video.so
+     libva info: Found init function __vaDriverInit_1_20
+     libva info: va_openDriver() returns 0
+     vainfo: VA-API version: 1.20 (libva 2.12.0)
+     vainfo: Driver version: Mesa Gallium driver 24.0.9-0ubuntu0.3 for D3D12 (Intel(R) Iris(R) Xe Graphics)
+     vainfo: Supported profile and entrypoints
+           VAProfileH264ConstrainedBaseline: VAEntrypointVLD
+           VAProfileH264Main               : VAEntrypointVLD
+           VAProfileH264Main               : VAEntrypointEncSlice
+           VAProfileH264High               : VAEntrypointVLD
+           VAProfileH264High               : VAEntrypointEncSlice
+           VAProfileHEVCMain               : VAEntrypointVLD
+           VAProfileHEVCMain               : VAEntrypointEncSlice
+           VAProfileHEVCMain10             : VAEntrypointVLD
+           VAProfileHEVCMain10             : VAEntrypointEncSlice
+           VAProfileVP9Profile0            : VAEntrypointVLD
+           VAProfileVP9Profile2            : VAEntrypointVLD
+           VAProfileAV1Profile0            : VAEntrypointVLD
+           VAProfileNone                   : VAEntrypointVideoProc
+     ``` 
 
 ## My personal goal
 

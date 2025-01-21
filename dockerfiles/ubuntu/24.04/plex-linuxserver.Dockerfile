@@ -7,3 +7,6 @@ RUN apt install -y \
     vainfo \
     mesa-va-drivers \
     ffmpeg
+
+ENTRYPOINT [""]
+CMD ["/init"]
