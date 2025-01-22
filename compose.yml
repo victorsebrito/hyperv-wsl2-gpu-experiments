@@ -45,6 +45,32 @@ services:
     volumes:
       - /usr/lib/wsl:/usr/lib/wsl
       - ./shared:/shared
+  ubuntu-24.04-build:
+    build:
+      context: .
+      dockerfile: dockerfiles/ubuntu/24.04/build.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./shared:/shared
+  ubuntu-24.04-kisak:
+    build:
+      context: .
+      dockerfile: dockerfiles/ubuntu/24.04/kisak.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./shared:/shared
   ubuntu-24.04-plex-linuxserver:
     build:
       context: .
