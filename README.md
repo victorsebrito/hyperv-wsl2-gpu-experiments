@@ -142,6 +142,10 @@ I'll use this section when I have updates. Feel free to open an issue or contrib
      Same kind of error, different symbols... probably because of the different libs versions.
      
      Anyways, it's good news: I've arrived where I was when I created the repo. Only now I can easily reproduce the errors and work on them.
+  4. I just created a topic in the Plex Forums to see if anyone can help:
+     [Hardware Transcoding (HW) not working with libva/VA-API using d3d12 driver (WSL2)](https://forums.plex.tv/t/hardware-transcoding-hw-not-working-with-libva-va-api-using-d3d12-driver-wsl2/903042).
+
+     In the meantime, I'll try to make it work on Alpine.
      
 ## My personal goal
 
