@@ -22,7 +22,7 @@ services:
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib
       - PUID=1000
       - PGID=1000
-      - VERSION=1.41.4.9380-34f46d871
+      - VERSION=1.41.3.9314-a0bfb8370
     devices:
       - /dev/dri:/dev/dri
       - /dev/dxg:/dev/dxg
@@ -55,7 +55,7 @@ services:
       - LD_LIBRARY_PATH=/usr/lib/wsl/lib
       - PUID=1000
       - PGID=1000
-      - VERSION=1.41.4.9380-34f46d871
+      - VERSION=1.41.3.9314-a0bfb8370
     devices:
       - /dev/dri:/dev/dri
       - /dev/dxg:/dev/dxg
