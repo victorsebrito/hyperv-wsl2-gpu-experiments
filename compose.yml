@@ -1,4 +1,17 @@
 services:
+  alpine-3.21-build:
+    build:
+      context: .
+      dockerfile: dockerfiles/alpine/3.21/build.Dockerfile
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl
+      - ./shared:/shared
   ubuntu-22.04:
     build:
       context: .
