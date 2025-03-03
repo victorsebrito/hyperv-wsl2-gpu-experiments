@@ -1,8 +1,8 @@
 FROM ubuntu:noble
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG MESA_VERSION=24.0.9
-ARG REVISION=0ubuntu0.3
+ARG MESA_VERSION=24.2.8
+ARG REVISION=1ubuntu1~24.04.1
 ARG PREFIX=/usr
 
 RUN apt-get update && \
@@ -22,10 +22,12 @@ RUN meson setup build/ \
         -Dplatforms= \
         -Dglx=disabled \
         -Degl-native-platform=drm \
-        -Dvideo-codecs=all
+        -Dvideo-codecs=all \
+        -Dbuildtype=debug
 RUN ninja -C build/ && \
     ninja -C build/ install
 
+WORKDIR /
 RUN apt-get install -y \
         vainfo \
         ffmpeg

@@ -1,7 +1,7 @@
 FROM alpine:3.21
 
-ARG LLVM_VERSION=17
-ARG MESA_VERSION=24.0.9
+ARG LLVM_VERSION=19
+ARG MESA_VERSION=24.2.8
 ARG PREFIX=/usr
 
 # Install build dependencie
@@ -32,6 +32,7 @@ RUN apk update && apk add --no-cache \
     meson \
     py3-mako \
     py3-packaging \
+    py3-yaml \
     python3 \
     vulkan-loader-dev \
     wayland-dev \
@@ -52,12 +53,11 @@ RUN cd mesa-$MESA_VERSION && \
     -Dplatforms= \
     -Dglx=disabled \
     -Degl-native-platform=drm \
-    -Dvideo-codecs=all
+    -Dvideo-codecs=all \
+    -Dbuildtype=debug
 RUN cd mesa-$MESA_VERSION && \
     ninja -C build/ && \
-    ninja -C build/ install && \
-    cd .. && \
-    rm -rf mesa-$MESA_VERSION mesa-$MESA_VERSION.tar.xz
+    ninja -C build/ install
 
 RUN apk add \
     libva-utils \
