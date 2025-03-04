@@ -146,7 +146,11 @@ I'll use this section when I have updates. Feel free to open an issue or contrib
      [Hardware Transcoding (HW) not working with libva/VA-API using d3d12 driver (WSL2)](https://forums.plex.tv/t/hardware-transcoding-hw-not-working-with-libva-va-api-using-d3d12-driver-wsl2/903042).
 
      In the meantime, I'll try to make it work on Alpine.
-     
+
+#### March 03, 2025
+  1. Been a while! I added a Dockerfile for Alpine and updated Mesa source to the latest version available on Ubuntu (24.2.8-1ubuntu1~24.04.1)
+  2. I couldn't get the driver to initialize successfully on Alpine so I ended up opening this issue: [microsoft/wsl#12653](https://github.com/microsoft/WSL/issues/12653). I’m confident that Plex will work just fine if I manage to make it work on Alpine.
+
 ## My personal goal
 
 The ideal setup is to have an **Windows 11 host with an Hyper-V VM running Ubuntu Server**. GPU acceleration should be available in both OSs, and Windows should also be accessible via HDMI with mouse and keyboard support.
